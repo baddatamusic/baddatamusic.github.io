@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bad Data | Official Site</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Mono:wght@400;500&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/scrollify/1.0.19/jquery.scrollify.min.css');
+    
+    :root {
+      --primary: #ff4d00;
+      --secondary: #00ffcc;
+      --accent: #ff00aa;
+      --dark: #121212;
+      --light: #f5f5f5;
+      --gray: #333;
+      --neon: 0 0 10px rgba(255, 77, 0, 0.5),
+              0 0 20px rgba(0, 255, 204, 0.3),
+              0 0 30px rgba(255, 0, 170, 0.2);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--dark);
+      color: var(--light);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(255,77,0,0.05) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(0,255,204,0.05) 0%, transparent 20%),
+        var(--dark);
+    }
+    .section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      scroll-snap-align: start;
+    }
+    html {
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 5%;
+      position: sticky;
+      top: 0;
+      background-color: rgba(0,0,0,0.9);
+      z-index: 100;
+      border-bottom: 1px solid var(--gray);
+      backdrop-filter: blur(10px);
+    }
+    header h1 {
+      font-size: 2rem;
+      letter-spacing: 3px;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--primary), var(--accent), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: var(--neon);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+    nav a {
+      margin-left: 30px;
+      text-decoration: none;
+      color: var(--light);
+      transition: all 0.3s;
+      font-weight: 600;
+      position: relative;
+      font-family: 'Roboto Mono', monospace;
+    }
+    nav a.active {
+      color: var(--primary);
+    }
+    nav a.active::after {
+      width: 100%;
+    }
+    nav a:hover {
+      color: var(--primary);
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--primary);
+      transition: width 0.3s;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+    .hero {
+      text-align: center;
+      padding: 120px 20px;
+      background: linear-gradient(to bottom, #111, #000);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-image {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 16px;
+      margin-top: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), var(--neon);
+      border: 1px solid var(--gray);
+      animation: fadeInUp 1.5s ease-out;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(255,77,0,0.1) 0%, transparent 50%);
+    }
+    .hero h2 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--primary), var(--accent), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: var(--neon);
+      animation: slideIn 1s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto;
+      color: #aaa;
+      font-size: 1.2rem;
+      font-family: 'Roboto Mono', monospace;
+    }
+    .section {
+      padding: 100px 10%;
+      text-align: center;
+    }
+    .section h3 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+    .section h3::after {
+      content: '';
+      position: absolute;
+      width: 50%;
+      height: 4px;
+      bottom: -10px;
+      left: 25%;
+      background: linear-gradient(to right, var(--primary), var(--accent), var(--secondary));
+      border-radius: 2px;
+      box-shadow: var(--neon);
+      animation: grow 1s ease-out;
+    }
+
+    @keyframes grow {
+      from { width: 0; }
+      to { width: 50%; }
+    }
+    .tracks iframe {
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), var(--neon);
+      margin-top: 30px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid var(--gray);
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .tracks iframe:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+    .tracks img, .header-image, .connect-image, .hero-image {
+      display: block;
+      max-width: 800px;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      margin: 40px auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s;
+      border: 1px solid var(--gray);
+    }
+    .tracks img:hover, .header-image:hover, .connect-image:hover {
+      transform: scale(1.02);
+    }
+    #about p {
+      max-width: 700px;
+      margin: 0 auto;
+      color: #aaa;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      font-family: 'Roboto Mono', monospace;
+    }
+    .socials {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
+    }
+    .socials a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      text-decoration: none;
+      color: var(--light);
+      padding: 12px 25px;
+      border: 1px solid var(--gray);
+      border-radius: 8px;
+      transition: all 0.3s;
+      font-weight: 600;
+      min-width: 120px;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(5px);
+      animation: popIn 0.5s ease-out;
+      animation-delay: calc(var(--i) * 0.1s);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      80% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .socials a:hover {
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      border-color: transparent;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 20px rgba(255, 77, 0, 0.5), var(--neon);
+      color: white;
+    }
+    footer {
+      border-top: 1px solid var(--gray);
+      padding: 30px;
+      text-align: center;
+      color: #777;
+      font-size: 0.9rem;
+      font-family: 'Roboto Mono', monospace;
+    }
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 15px;
+      }
+      nav {
+        margin-top: 15px;
+      }
+      nav a {
+        margin: 0 10px;
+      }
+      .hero h2 {
+        font-size: 2.5rem;
+      }
+      .section {
+        padding: 60px 20px;
+      }
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollify/1.0.19/jquery.scrollify.min.js"></script>
+  <script>
+    $(function() {
+      $.scrollify({
+        section : ".section",
+        scrollSpeed: 800,
+        offset: -50,
+        setHeights: false,
+        updateHash: true,
+        touchScroll: true,
+        before:function(index, sections) {
+          $("nav a").removeClass("active");
+          $("nav a").eq(index-1).addClass("active");
+          
+          // Add parallax effect
+          $(".section").css("transform", "translateY(0)");
+          $(sections[index]).find("h3, p, iframe, img").css({
+            "transform": "translateY(50px)",
+            "opacity": 0
+          }).each(function(i) {
+            $(this).delay(i*200).animate({
+              "transform": "translateY(0)",
+              "opacity": 1
+            }, 800);
+          });
+        }
+      });
+
+      // Add animation delays to social buttons
+      $(".socials a").each(function(i) {
+        $(this).css("--i", i);
+      });
+
+      // Add cursor trail effect
+      document.addEventListener('mousemove', function(e) {
+        const cursor = document.createElement('div');
+        cursor.className = 'cursor-trail';
+        cursor.style.left = e.pageX + 'px';
+        cursor.style.top = e.pageY + 'px';
+        document.body.appendChild(cursor);
+        setTimeout(() => {
+          cursor.remove();
+        }, 1000);
+      });
+    });
+  </script>
+  <style>
+    .cursor-trail {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--primary), transparent);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      mix-blend-mode: screen;
+      animation: trailFade 1s ease-out forwards;
+    }
+    @keyframes trailFade {
+      0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BAD DATA</h1>
+    <nav>
+      <a href="#music">Music</a>
+      <a href="#about">About</a>
+      <a href="#connect">Connect</a>
+    </nav>
+  </header>
+
+  <img class="header-image" src="https://ugc.production.linktr.ee/d9ccb293-368c-4cca-8ed0-afc2c5fb15bd_IMG-5786.jpeg?io=true&size=thumbnail-feature-v1_0" alt="Bad Data Photo">
+
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <h2>Raw. Real. Bad Data.</h2>
+      <p>A rap duo based out of St. Albans, Vermont. Songs written, produced, and sung by <span style="color: var(--primary)">Barry Shelton</span>, featuring <span style="color: var(--secondary)">Briley Carter</span>.</p>
+    </div>
+    <img src="https://ugc.production.linktr.ee/d9ccb293-368c-4cca-8ed0-afc2c5fb15bd_IMG-5786.jpeg?io=true&size=thumbnail-feature-v1_0" alt="Bad Data" class="hero-image">
+  </section>
+
+  <section id="music" class="section">
+    <h3>Latest Tracks</h3>
+    <div class="tracks">
+      <iframe src="https://open.spotify.com/embed/artist/50qXSDNnK95yo101n0hEv1?utm_source=generator" width="100%" height="380" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+    <img src="https://ugc.production.linktr.ee/d9ccb293-368c-4cca-8ed0-afc2c5fb15bd_IMG-5786.jpeg" alt="Bad Data" class="hero-image" style="margin-top: 40px;">
+  </section>
+
+  <section id="about" class="section">
+    <h3>About Bad Data</h3>
+    <p>Bad Data is the unfiltered sound of Vermont rap, bringing gritty production and raw lyrics. With <span style="color: var(--primary)">Barry Shelton</span> on writing, production, and vocals, featuring bars dropped by <span style="color: var(--secondary)">Briley Carter</span>, they carve their own lane in hip-hop, delivering hard-hitting verses and memorable hooks.</p>
+  </section>
+
+  <section id="connect" class="section">
+    <h3>Connect With Us</h3>
+    <div class="socials">
+      <a href="https://www.instagram.com/im_bad_data/?hl=en" target="_blank">Instagram</a>
+      <a href="https://www.youtube.com/@baddatamusic" target="_blank">YouTube</a>
+      <a href="https://www.tiktok.com/@baddatamusic" target="_blank">TikTok</a>
+      <a href="https://soundcloud.com/baddatamusic" target="_blank">SoundCloud</a>
+      <a href="https://open.spotify.com/artist/50qXSDNnK95yo101n0hEv1" target="_blank">Spotify</a>
+    </div>
+    <img class="connect-image" src="https://ugc.production.linktr.ee/7e4a2e7d-e974-4ac1-a72a-b9352ec5fdcb_IMG-5522.jpeg?io=true&size=thumbnail-feature-v1_0" alt="Bad Data Connect Image">
+  </section>
+
+  <footer>
+    © <script>document.write(new Date().getFullYear())</script> Bad Data. All rights reserved.
+    <div class="scroll-hint">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5v14M19 12l-7 7-7-7"/>
+      </svg>
+    </div>
+  </footer>
+  <style>
+    .scroll-hint {
+      margin-top: 20px;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-10px);}
+      60% {transform: translateY(-5px);}
+    }
+  </style>
+</body>
+</html>
