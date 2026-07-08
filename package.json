@@ -1,0 +1,15 @@
+{
+  "name": "thecharredrebellion",
+  "version": "1.0.0",
+  "description": "Static website for The Charred Rebellion — grunge band from South Houston, TX",
+  "scripts": {
+    "images": "node tools/optimize-images.mjs",
+    "serve": "npx -y serve ."
+  },
+  "type": "commonjs",
+  "devDependencies": {
+    "puppeteer-core": "^25.3.0",
+    "sharp": "^0.35.3"
+  },
+  "private": true
+}
